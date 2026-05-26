@@ -1,0 +1,612 @@
+/* ============================================================
+   FITNESS LOGGER – Globales CSS
+   ============================================================
+   Aufbau:
+     1.  CSS-Variablen (Farben, Abstände)
+     2.  Reset & Grundstil
+     3.  Navigation
+     4.  Seiten-Layout & Container
+     5.  Startseite (Hero + Profilkarten)
+     6.  Abschnitte (section, h2)
+     7.  Statistik-Karten
+     8.  Fortschrittsbalken
+     9.  Aktionsbuttons
+     10. Tabs & Eintrags-Listen
+     11. Tags (kleine Etiketten)
+     12. Formulare
+     13. Buttons
+     14. Presets
+     15. Tipps-Box
+     16. Wochenübersicht
+     17. Hilfselemente (Loading, Error, Empty)
+     18. Responsive (Smartphone)
+   ============================================================ */
+
+
+/* ============================================================
+   1. CSS-VARIABLEN
+   Mit :root definierte Variablen gelten für die gesamte Seite.
+   Verwendung: var(--primary)  statt  #4f46e5
+   ============================================================ */
+:root {
+  --primary:      #4f46e5;   /* Indigo – Hauptfarbe */
+  --success:      #10b981;   /* Grün   – Erfolg, Protein */
+  --danger:       #ef4444;   /* Rot    – Löschen, Fehler */
+  --warning:      #f59e0b;   /* Orange – Warnungen */
+  --bg:           #f8fafc;   /* Sehr helles Grau – Seitenhintergrund */
+  --card-bg:      #ffffff;   /* Weiß – Karteninhalt */
+  --text:         #1e293b;   /* Dunkles Blaugrau – Haupttext */
+  --text-light:   #64748b;   /* Mittleres Grau – Nebentext */
+  --border:       #e2e8f0;   /* Hellgrau – Rahmenlinien */
+  --shadow:       0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-hover: 0 4px 10px rgba(0,0,0,0.12);
+  --radius:       12px;
+}
+
+/* ============================================================
+   2. RESET & GRUNDSTIL
+   box-sizing: border-box = Padding wird in die Breite eingerechnet
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ============================================================
+   3. NAVIGATION
+   ============================================================ */
+.navbar {
+  background: var(--primary);
+  color: white;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;   /* bleibt oben beim Scrollen */
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.navbar-title {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.btn-back, .btn-refresh {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0.3rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+.btn-back:hover, .btn-refresh:hover { background: rgba(255,255,255,0.18); }
+.btn-refresh { font-size: 1.2rem; line-height: 1; }
+
+/* ============================================================
+   4. SEITEN-LAYOUT & CONTAINER
+   ============================================================ */
+.app-page { min-height: 100vh; }
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+/* ============================================================
+   5. STARTSEITE
+   ============================================================ */
+.hero {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.hero h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 0.4rem;
+}
+
+.subtitle {
+  color: var(--text-light);
+  font-size: 1.05rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Profilkarten nebeneinander mit Flexbox */
+.profile-cards {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.profile-card {
+  background: var(--card-bg);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem 1.5rem;
+  cursor: pointer;
+  width: 210px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  font-family: inherit;
+  color: var(--text);
+  /* transition: sanfter Übergang bei Hover-Effekten */
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.profile-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--primary);
+}
+
+.profile-icon {
+  font-size: 2.8rem;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.profile-card h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.3rem;
+}
+
+.profile-card p {
+  color: var(--text-light);
+  font-size: 0.88rem;
+  margin-bottom: 0.15rem;
+}
+
+/* ============================================================
+   6. ABSCHNITTE
+   ============================================================ */
+.section { margin-bottom: 2rem; }
+
+.section h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--border);
+}
+
+/* ============================================================
+   7. STATISTIK-KARTEN (CSS Grid: auto-fit = so viele Spalten wie passen)
+   ============================================================ */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.card-label {
+  font-size: 0.73rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-light);
+  margin-bottom: 0.5rem;
+}
+
+.card-value {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1;
+}
+
+.card-sub {
+  color: var(--text-light);
+  font-size: 0.83rem;
+  margin-top: 0.15rem;
+  margin-bottom: 0.6rem;
+}
+
+.card-net {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+/* ============================================================
+   8. FORTSCHRITTSBALKEN
+   ============================================================ */
+.progress-bar {
+  background: var(--border);
+  border-radius: 99px;
+  height: 7px;
+  overflow: hidden;    /* Füllstand wird am Rand abgeschnitten */
+  margin-bottom: 0.25rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 99px;
+  transition: width 0.4s ease;   /* sanfte Animation beim Laden */
+}
+
+.progress-protein { background: var(--success); }
+.progress-full    { background: var(--success) !important; }  /* grün bei 100% */
+
+.progress-label { font-size: 0.78rem; color: var(--text-light); }
+
+/* ============================================================
+   9. AKTIONSBUTTONS
+   ============================================================ */
+.action-buttons {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+   10. TABS & EINTRAGS-LISTEN
+   ============================================================ */
+.tabs { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; }
+
+.tab {
+  padding: 0.4rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 99px;   /* Pill-Form */
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-family: inherit;
+  color: var(--text-light);
+  transition: all 0.15s;
+}
+
+.tab-active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+.entry-list { display: flex; flex-direction: column; gap: 0.6rem; }
+
+.entry-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.9rem 1rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  box-shadow: var(--shadow);
+}
+
+.entry-info { flex: 1; }
+.entry-name { font-weight: 600; margin-bottom: 0.3rem; }
+
+.entry-tags {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.2rem;
+}
+
+.entry-note {
+  color: var(--text-light);
+  font-size: 0.82rem;
+  font-style: italic;
+  margin-top: 0.2rem;
+}
+
+.entry-date {
+  color: var(--text-light);
+  font-size: 0.78rem;
+  margin-top: 0.25rem;
+}
+
+.entry-actions { display: flex; gap: 0.4rem; flex-shrink: 0; flex-wrap: wrap; }
+
+/* ============================================================
+   11. TAGS (kleine farbige Etiketten)
+   ============================================================ */
+.tag {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  border-radius: 99px;
+  font-size: 0.76rem;
+  font-weight: 500;
+}
+
+.tag-kcal     { background: #ede9fe; color: #5b21b6; }
+.tag-protein  { background: #d1fae5; color: #065f46; }
+.tag-duration { background: #dbeafe; color: #1e40af; }
+.tag-distance { background: #fef3c7; color: #92400e; }
+.tag-burned   { background: #fee2e2; color: #991b1b; }
+
+/* ============================================================
+   12. FORMULARE
+   ============================================================ */
+.form-header { margin-bottom: 1.25rem; }
+
+.form-header h1 {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.form {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  max-width: 560px;
+}
+
+.form-group { margin-bottom: 1.1rem; }
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.87rem;
+  margin-bottom: 0.35rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.6rem 0.85rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--text);
+  background: white;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+/* Fokus-Rahmen – zeigt dem Nutzer welches Feld aktiv ist */
+.form-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.form-hint {
+  display: block;
+  font-size: 0.77rem;
+  color: var(--text-light);
+  margin-top: 0.25rem;
+}
+
+/* Zwei Felder nebeneinander */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.form-actions { display: flex; gap: 0.75rem; margin-top: 1.25rem; }
+
+/* ============================================================
+   13. BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-block;
+  padding: 0.6rem 1.3rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: none;
+  transition: background 0.15s, transform 0.1s;
+  text-align: center;
+}
+
+.btn:hover    { transform: translateY(-1px); }
+.btn:active   { transform: translateY(0); }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+.btn-primary   { background: var(--primary); color: white; }
+.btn-primary:hover  { background: #4338ca; }
+
+.btn-success   { background: var(--success); color: white; }
+.btn-success:hover  { background: #059669; }
+
+.btn-secondary { background: var(--border); color: var(--text); }
+.btn-secondary:hover { background: #cbd5e1; }
+
+.btn-danger    { background: var(--danger); color: white; }
+.btn-danger:hover   { background: #dc2626; }
+
+.btn-sm { padding: 0.35rem 0.8rem; font-size: 0.82rem; }
+
+/* ============================================================
+   14. PRESETS
+   ============================================================ */
+.preset-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+
+.preset-card {
+  background: var(--card-bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.75rem;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.preset-card:hover { border-color: var(--primary); box-shadow: var(--shadow-hover); }
+
+.preset-name { font-weight: 600; font-size: 0.87rem; color: var(--text); margin-bottom: 0.25rem; }
+.preset-info { font-size: 0.77rem; color: var(--text-light); }
+
+/* ============================================================
+   15. TIPPS-BOX
+   ============================================================ */
+.tips-box {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin-top: 1rem;
+}
+
+.tips-box h3 { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.6rem; color: #1e40af; }
+.tip         { font-size: 0.88rem; color: #1e40af; margin-bottom: 0.4rem; }
+.tip-note    { display: block; font-size: 0.74rem; color: var(--text-light); margin-top: 0.5rem; }
+
+/* ============================================================
+   16. WOCHENÜBERSICHT
+   ============================================================ */
+.week-list { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+
+.week-day {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  box-shadow: var(--shadow);
+}
+
+.week-day-today  { border-color: var(--primary); background: #eef2ff; }
+
+.week-day-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.3rem; }
+.week-day-name   { font-weight: 700; font-size: 0.88rem; min-width: 22px; }
+.week-day-date   { font-size: 0.8rem; color: var(--text-light); }
+
+.today-badge {
+  background: var(--primary); color: white;
+  font-size: 0.68rem; padding: 0.1rem 0.45rem;
+  border-radius: 99px; font-weight: 600;
+}
+
+.week-day-data  { display: flex; gap: 0.4rem; flex-wrap: wrap; align-items: center; }
+.week-day-counts { font-size: 0.77rem; color: var(--text-light); }
+.week-day-empty  { font-size: 0.82rem; color: var(--text-light); font-style: italic; }
+
+.week-summary-box {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+.week-summary-box h3 {
+  font-size: 0.82rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  color: var(--text-light); margin-bottom: 0.75rem;
+}
+
+.week-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 0.75rem;
+}
+
+.week-stat-value { font-size: 1.6rem; font-weight: 800; color: var(--primary); line-height: 1; }
+.week-stat-label { font-size: 0.77rem; color: var(--text-light); margin-top: 0.2rem; }
+
+/* ============================================================
+   17. HILFSELEMENTE
+   ============================================================ */
+.empty-hint {
+  color: var(--text-light);
+  font-style: italic;
+  text-align: center;
+  padding: 1.5rem;
+  background: var(--card-bg);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+}
+
+.error-box {
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  border-radius: var(--radius);
+  padding: 0.9rem 1.1rem;
+  color: #991b1b;
+  margin-bottom: 1rem;
+}
+.error-box p { margin-bottom: 0.2rem; }
+
+.error-banner {
+  background: #fef3c7;
+  border-bottom: 2px solid var(--warning);
+  padding: 0.6rem 1rem;
+  font-size: 0.87rem;
+  color: #92400e;
+}
+
+.loading { text-align: center; padding: 3rem; color: var(--text-light); }
+
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 1rem;
+  color: var(--text-light);
+}
+
+/* CSS-Animation: dreht sich 360° */
+.loading-spinner {
+  width: 36px; height: 36px;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ============================================================
+   18. RESPONSIVE – Smartphone-Anpassungen
+   Gelten nur wenn die Bildschirmbreite < 600px ist.
+   ============================================================ */
+@media (max-width: 600px) {
+  .hero h1            { font-size: 1.75rem; }
+  .profile-cards      { flex-direction: column; align-items: center; }
+  .profile-card       { width: 100%; max-width: 310px; }
+  .card-grid          { grid-template-columns: 1fr 1fr; }
+  .form-row           { grid-template-columns: 1fr; }
+  .action-buttons     { flex-direction: column; }
+  .form-actions       { flex-direction: column; }
+  .week-stats         { grid-template-columns: 1fr 1fr; }
+  .entry-card         { flex-direction: column; }
+  .entry-actions      { justify-content: flex-start; }
+}
