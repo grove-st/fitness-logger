@@ -17,16 +17,15 @@
 
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl     = import.meta.env.VITE_SUPABASE_URL
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.error(
-    '⚠ Supabase-Konfiguration fehlt!\n' +
-    'Bitte .env.example als .env kopieren und die Werte eintragen.'
-  )
-}
+export const isSupabaseConfigured = Boolean(supabaseUrl && supabaseAnonKey)
 
-// Diesen Client in allen anderen Dateien importieren:
-//   import { supabase } from '../supabaseClient.js'
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+export const supabaseConfigError = !isSupabaseConfigured
+  ? 'Supabase URL und Anon Key müssen in der .env-Datei definiert sein.'
+  : null
+
+export const supabase = isSupabaseConfigured
+  ? createClient(supabaseUrl, supabaseAnonKey)
+  : null
